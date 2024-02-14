@@ -30,3 +30,37 @@
 ![Alt_text](../images/9.png)
 
 ![Alt_text](../images/10.png)
+
+![Alt_text](../images/11.png)
+
+## 4 Création de runners Gitlab sur gitlab.com ou gitlab.iutbeziers.fr
+```cmd
+gitlab-runner register  --url https://gitlab.iutbeziers.fr  --token glrt-U1xG7j2Z3PdK9Uy14nsN
+```
+![Alt_text](../images/12.png)
+
+## 4.1 Variables d’environnement pour le runner
+
+![Alt_text](../images/16.png)
+
+## 4.2 Création d’un runner Gitlab shell sur votre machine
+
+![Alt_text](../images/13.png)
+
+![Alt_text](../images/14.png)
+
+## 4.3 Création d’un runner Gitlab D.I.N.D (Docker in Docker)
+```cmd
+sudo gitlab-runner register -n \
+--url "https://gitlab.iutbeziers.fr/" \
+--registration-token glrt-U1xG7j2Z3PdK9Uy14nsN \
+--executor docker \
+--description "docker runner dind portainer1" \
+--docker-image "docker:24.0.5" \
+--docker-privileged
+```
+![Alt_text](../images/15.png)
+
+**5. Faites une modification sur ce projet pour arrêter le deploiement de l’image sur le registry de l’IUT.**
+![Alt_text](../images/17.png)
+
