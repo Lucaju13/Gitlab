@@ -62,5 +62,6 @@ sudo gitlab-runner register -n \
 ![Alt_text](../images/15.png)
 
 **5. Faites une modification sur ce projet pour arrêter le deploiement de l’image sur le registry de l’IUT.**
+
 ![Alt_text](../images/17.png)
 
