@@ -53,7 +53,7 @@ gitlab-runner register  --url https://gitlab.iutbeziers.fr  --token glrt-U1xG7j2
 ```cmd
 sudo gitlab-runner register -n \
 --url "https://gitlab.iutbeziers.fr/" \
---registration-token glrt-U1xG7j2Z3PdK9Uy14nsN \
+--registration-token glrt-t_8bDXXYemWTezBXQ-et \
 --executor docker \
 --description "docker runner dind portainer1" \
 --docker-image "docker:24.0.5" \
