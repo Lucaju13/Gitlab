@@ -26,3 +26,7 @@
 ![Alt_text](../images/7.png)
 
 ![Alt_text](../images/8.png)
+
+![Alt_text](../images/9.png)
+
+![Alt_text](../images/10.png)
