@@ -20,3 +20,9 @@
 **3 - Modifs le daemon Docker**
 
 ![Alt_text](../images/5.png)
+
+![Alt_text](../images/6.png)
+
+![Alt_text](../images/7.png)
+
+![Alt_text](../images/8.png)
