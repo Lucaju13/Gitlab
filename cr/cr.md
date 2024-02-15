@@ -66,7 +66,38 @@ sudo gitlab-runner register -n \
 ![Alt_text](../images/15.png)
 
 **3. Commentez et expliquer ce fichier gitlab-ci.yaml**
+
 [Voici le fichier yml](../script/.gitlab-ci.yml)
+Ce fichier GitLab CI/CD automatisera le processus de construction, de test, de déploiement et d'analyse de sécurité des images Docker pour le projet spécifié.
+
+- Variables:
+        Définit plusieurs variables d'environnement nécessaires pour la configuration du Docker, l'authentification au registre Docker, etc.
+
+- Stages:
+        Définit les différentes étapes du pipeline CI/CD. Chaque étape représente une phase distincte du processus, telles que la construction de l'image, les tests, le déploiement, et la numérisation des conteneurs.
+
+- Before_script:
+        Configure l'environnement avant l'exécution du script. Il crée un répertoire pour les certificats Docker, écrit les fichiers nécessaires, puis utilise docker login pour s'authentifier auprès d'un registre Docker.
+
+- Build_image Stage:
+        Construit une image Docker en utilisant le fichier Dockerfile dans le répertoire actuel. L'image est ensuite taguée et stockée dans un registre Docker spécifié.
+
+- Test Stage:
+        Exécute des scripts de test. Dans cet exemple, il imprime simplement un message, mais cela pourrait inclure des tests unitaires, d'intégration, etc.
+
+- Deploy Stage:
+        Pousse l'image Docker construite précédemment dans le registre Docker spécifié. Ensuite, il se déconnecte du registre et supprime les certificats Docker.
+
+- Container_Scanning Stage:
+        Effectue une analyse de sécurité des vulnérabilités dans l'image Docker à l'aide de Trivy. Il configure les variables nécessaires pour l'authentification auprès du registre, spécifie l'image à analyser, et génère un rapport de numérisation qui est sauvegardé comme artefact.
+
+- Cache:
+        Utilise la fonction de mise en cache pour stocker localement certaines données, telles que la base de données de vulnérabilités de Trivy, afin d'accélérer les analyses futures.
+
+- Commentaires:
+        Certains éléments du fichier sont commentés (#) pour désactiver ou expliquer des parties du code. Par exemple, la ligne avec include est commentée, indiquant qu'elle est actuellement désactivée.
+
+**4. Faites valider votre chaine de build par votre enseignant.**
 
 ![Alt_text](../images/18.png)
 
