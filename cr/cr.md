@@ -102,6 +102,8 @@ Ce fichier GitLab CI/CD automatisera le processus de construction, de test, de d
 
 ![Alt_text](../images/18.png)
 
+![Alt_text](../images/19.png)
+
 **5. Faites une modification sur ce projet pour arrêter le deploiement de l’image sur le registry de l’IUT.**
 
 ![Alt_text](../images/17.png)
