@@ -1,0 +1,89 @@
+default:
+    image: docker:24.0.5
+    services:
+       - docker:24.0.5-dind
+
+variables:
+  DOCKER_TLS_VERIFY: "1"
+  DOCKER_CERT_PATH: "~/.docker"
+  DOCKER_HOST: "tcp://202-13.iutbeziers.fr:2376"
+  DOCKER_DRIVER: overlay2
+  SECURE_LOG_LEVEL: 'debug'
+  CI_REGISTRY_IMAGE: registry.iutbeziers.fr/debianiut
+  CI_REGISTRY: registry.iutbeziers.fr
+  CI_DEFAULT_BRANCH: main
+
+
+stages:
+   - build_image
+   - test
+   - deploy
+   - container_scanning
+    
+  
+
+before_script:
+    - mkdir -p $DOCKER_CERT_PATH
+    - echo "$DOCKER_CA" > $DOCKER_CERT_PATH/ca.pem
+    - echo "$DOCKER_CERT" > $DOCKER_CERT_PATH/cert.pem
+    - echo "$DOCKER_KEY" > $DOCKER_CERT_PATH/key.pem
+    - docker --tlsverify  info
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+
+
+
+build_image:
+  stage: build_image
+  script: 
+    - docker pull debian:bullseye
+    - docker buildx build -t registry.iutbeziers.fr/lucas.canjale/debianiut:latest -f ./Dockerfile .
+
+#include:
+#  - template: Security/Container-Scanning.gitlab-ci.yml
+
+test:
+  before_script:
+    echo "Test un jour, test toujours"
+  stage: test
+  script:
+    - echo "Test un autre jour"
+  
+deploy:
+  stage: deploy
+  script:
+      - docker push registry.iutbeziers.fr/lucas.canjale/debianiut:latest
+      - docker logout $CI_REGISTRY
+      - rm -rf $DOCKER_CERT_PATH
+
+container_scanning:
+  stage: container_scanning
+  variables:
+    # No need to clone the repo, we exclusively work on artifacts. See
+    # https://docs.gitlab.com/ee/ci/runners/configure_runners.html#git-strategy
+    GIT_STRATEGY: none
+    TRIVY_USERNAME: "$CI_REGISTRY_USER"
+    TRIVY_PASSWORD: "$CI_REGISTRY_PASSWORD"
+    TRIVY_AUTH_URL: "$CI_REGISTRY"
+    TRIVY_NO_PROGRESS: "true"
+    TRIVY_CACHE_DIR: ".trivycache/"
+    TRIVY_IMAGE: "aquasec/trivy:latest"
+    TRIVY_COMMAND: "docker run -u root aquasec/trivy:latest"
+    #FULL_IMAGE_NAME: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+    FULL_IMAGE_NAME: "registry.iutbeziers.fr/debianiut:latest"
+  script:
+    - echo $FULL_IMAGE_NAME
+    - docker pull $TRIVY_IMAGE
+    # cache cleanup is needed when scanning images with the same tags, it does not remove the database
+    - time $TRIVY_COMMAND image --clear-cache
+    # update vulnerabilities db
+    - time $TRIVY_COMMAND image --download-db-only
+    # Builds report and puts it in the default workdir $CI_PROJECT_DIR, so `artifacts:` can take it from there
+    - time $TRIVY_COMMAND image --scanners vuln --exit-code 0 --format template --template "@/contrib/gitlab.tpl"
+         --output "gl-container-scanning-report.json"  "$FULL_IMAGE_NAME"
+    # Prints full report
+    - time $TRIVY_COMMAND image --scanners vuln --exit-code 0 "$FULL_IMAGE_NAME"
+
+  cache:
+    paths:
+      - .trivycache/
+ 
