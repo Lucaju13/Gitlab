@@ -35,7 +35,11 @@
 
 ## 4 Création de runners Gitlab sur gitlab.com ou gitlab.iutbeziers.fr
 ```cmd
-gitlab-runner register  --url https://gitlab.iutbeziers.fr  --token glrt-U1xG7j2Z3PdK9Uy14nsN
+gitlab-runner register -n \
+--url "https://gitlab.iutbeziers.fr/" \
+--registration-token glrt-5ANxYhW4XhYSb7rrioz- \
+--executor shell \
+--description "runner shell portainer1"
 ```
 ![Alt_text](../images/12.png)
 
@@ -53,7 +57,7 @@ gitlab-runner register  --url https://gitlab.iutbeziers.fr  --token glrt-U1xG7j2
 ```cmd
 sudo gitlab-runner register -n \
 --url "https://gitlab.iutbeziers.fr/" \
---registration-token glrt-t_8bDXXYemWTezBXQ-et \
+--registration-token glrt-5ANxYhW4XhYSb7rrioz- \
 --executor docker \
 --description "docker runner dind portainer1" \
 --docker-image "docker:24.0.5" \
@@ -64,4 +68,9 @@ sudo gitlab-runner register -n \
 **5. Faites une modification sur ce projet pour arrêter le deploiement de l’image sur le registry de l’IUT.**
 
 ![Alt_text](../images/17.png)
+
+
+![Alt_text](../images/18.png)
+
+
 
