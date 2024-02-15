@@ -68,6 +68,7 @@ sudo gitlab-runner register -n \
 **3. Commentez et expliquer ce fichier gitlab-ci.yaml**
 
 [Voici le fichier yml](../script/.gitlab-ci.yml)
+
 Ce fichier GitLab CI/CD automatisera le processus de construction, de test, de déploiement et d'analyse de sécurité des images Docker pour le projet spécifié.
 
 - Variables:
