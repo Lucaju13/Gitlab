@@ -108,6 +108,20 @@ Ce fichier GitLab CI/CD automatisera le processus de construction, de test, de d
 
 ![Alt_text](../images/17.png)
 
+**6. Scan de vulnerabilités.**
+
+J'ai ajouté la ligne dans le stage container:
+```yml
+ # Prints full report
+    - time $TRIVY_COMMAND image --severity CRITICAL --scanners vuln --exit-code 1 "$FULL_IMAGE_NAME"
+```
+
+Ensuite j'ai relancé le pipeline et l'image n'est pas deployé car elle a beacoup de vulnerabilité.
+![Alt_text](../images/20.png)
+
+![Alt_text](../images/21.png)
+
+
 
 
 
