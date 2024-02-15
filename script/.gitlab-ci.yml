@@ -17,8 +17,9 @@ variables:
 stages:
    - build_image
    - test
-   - deploy
    - container_scanning
+   - deploy
+   
     
   
 
@@ -56,7 +57,7 @@ deploy:
       - rm -rf $DOCKER_CERT_PATH
 
 container_scanning:
-  stage: container_scanning
+
   variables:
     # No need to clone the repo, we exclusively work on artifacts. See
     # https://docs.gitlab.com/ee/ci/runners/configure_runners.html#git-strategy
@@ -81,7 +82,7 @@ container_scanning:
     - time $TRIVY_COMMAND image --scanners vuln --exit-code 0 --format template --template "@/contrib/gitlab.tpl"
          --output "gl-container-scanning-report.json"  "$FULL_IMAGE_NAME"
     # Prints full report
-    - time $TRIVY_COMMAND image --scanners vuln --exit-code 0 "$FULL_IMAGE_NAME"
+    - time $TRIVY_COMMAND image --severity CRITICAL --scanners vuln --exit-code 1 "$FULL_IMAGE_NAME"
 
   cache:
     paths:
