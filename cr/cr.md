@@ -83,7 +83,7 @@ Ce fichier GitLab CI/CD automatisera le processus de construction, de test, de d
 - **Build_image Stage:**
         Construit une image Docker en utilisant le fichier Dockerfile dans le répertoire actuel. L'image est ensuite taguée et stockée dans un registre Docker spécifié (iut registry).
 
-- Test Stage:
+- **Test Stage:**
         Exécute des scripts de test. Dans cet exemple, il imprime simplement un message, mais cela pourrait inclure des tests unitaires, d'intégration, etc.
 
 - **Deploy Stage:**
