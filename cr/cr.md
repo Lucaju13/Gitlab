@@ -72,16 +72,16 @@ sudo gitlab-runner register -n \
 Ce fichier GitLab CI/CD automatisera le processus de construction, de test, de déploiement et d'analyse de sécurité des images Docker pour le projet spécifié.
 
 - Variables:
-        Définit plusieurs variables d'environnement nécessaires pour la configuration du Docker, l'authentification au registre Docker, etc.
+        Définit plusieurs variables d'environnement nécessaires pour la configuration du Docker, l'authentification au registre Docker, etc. Dans mon cas j'ai utilisé l'authentification du registry de l'iut.
 
 - Stages:
         Définit les différentes étapes du pipeline CI/CD. Chaque étape représente une phase distincte du processus, telles que la construction de l'image, les tests, le déploiement, et la numérisation des conteneurs.
 
 - Before_script:
-        Configure l'environnement avant l'exécution du script. Il crée un répertoire pour les certificats Docker, écrit les fichiers nécessaires, puis utilise docker login pour s'authentifier auprès d'un registre Docker.
+        Configure l'environnement avant l'exécution du script. Il crée un répertoire pour les certificats Docker, écrit les fichiers nécessaires, puis utilise docker login pour s'authentifier auprès d'un registre Docker (iut registry).
 
 - Build_image Stage:
-        Construit une image Docker en utilisant le fichier Dockerfile dans le répertoire actuel. L'image est ensuite taguée et stockée dans un registre Docker spécifié.
+        Construit une image Docker en utilisant le fichier Dockerfile dans le répertoire actuel. L'image est ensuite taguée et stockée dans un registre Docker spécifié (iut registry).
 
 - Test Stage:
         Exécute des scripts de test. Dans cet exemple, il imprime simplement un message, mais cela pourrait inclure des tests unitaires, d'intégration, etc.
