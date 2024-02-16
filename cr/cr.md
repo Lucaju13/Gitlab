@@ -98,7 +98,7 @@ Ce fichier GitLab CI/CD automatisera le processus de construction, de test, de d
 - **Commentaires:**
         Certains éléments du fichier sont commentés (#) pour désactiver ou expliquer des parties du code. Par exemple, la ligne avec include est commentée, indiquant qu'elle est actuellement désactivée.
 
-**4. Faites valider votre chaine de build par votre enseignant.**
+**4. Faites valider votre chaine de build**
 
 ![Alt_text](../images/18.png)
 
